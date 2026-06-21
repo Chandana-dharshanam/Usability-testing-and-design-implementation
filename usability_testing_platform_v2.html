@@ -1,0 +1,255 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.wrap{padding:1rem 0}
+.tabs{display:flex;gap:0;margin-bottom:1.5rem;border-radius:var(--border-radius-lg);overflow:hidden;border:0.5px solid var(--color-border-secondary)}
+.tab{flex:1;padding:10px 4px;font-size:12px;font-weight:500;cursor:pointer;background:var(--color-background-primary);color:var(--color-text-secondary);border:none;border-right:0.5px solid var(--color-border-secondary);transition:background .15s,color .15s;display:flex;flex-direction:column;align-items:center;gap:4px}
+.tab:last-child{border-right:none}
+.tab i{font-size:18px}
+.tab.a0{background:#E6F1FB;color:#0C447C}
+.tab.a1{background:#E1F5EE;color:#085041}
+.tab.a2{background:#FAEEDA;color:#633806}
+.tab.a3{background:#EEEDFE;color:#3C3489}
+.tab.a4{background:#FAECE7;color:#712B13}
+.panel{display:none}.panel.active{display:block}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:1.5rem}
+.mcard{border-radius:var(--border-radius-md);padding:1rem;text-align:center}
+.mcard.blue{background:#E6F1FB}.mcard.teal{background:#E1F5EE}.mcard.purple{background:#EEEDFE}.mcard.amber{background:#FAEEDA}
+.mval{font-size:26px;font-weight:500;display:block}
+.mval.blue{color:#0C447C}.mval.teal{color:#085041}.mval.purple{color:#3C3489}.mval.amber{color:#633806}
+.mlbl{font-size:12px;margin-top:3px;display:block}
+.mlbl.blue{color:#185FA5}.mlbl.teal{color:#0F6E56}.mlbl.purple{color:#534AB7}.mlbl.amber{color:#854F0B}
+.section-hd{font-size:15px;font-weight:500;color:var(--color-text-primary);margin:1.25rem 0 10px;display:flex;align-items:center;gap:8px}
+.section-hd i{font-size:17px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:12px}
+.row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary);gap:8px}
+.row:last-child{border-bottom:none}
+.row-l{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.b-blue{background:#E6F1FB;color:#0C447C}
+.b-teal{background:#E1F5EE;color:#085041}
+.b-amber{background:#FAEEDA;color:#633806}
+.b-red{background:#FCEBEB;color:#791F1F}
+.b-purple{background:#EEEDFE;color:#3C3489}
+.b-coral{background:#FAECE7;color:#712B13}
+.b-green{background:#EAF3DE;color:#27500A}
+.scenario-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0}
+.sn-blue{background:#B5D4F4;color:#0C447C}
+.sn-teal{background:#9FE1CB;color:#085041}
+.sn-purple{background:#CECBF6;color:#3C3489}
+.sn-coral{background:#F5C4B3;color:#712B13}
+.rtext{font-size:13px;color:var(--color-text-primary);font-weight:500}
+.rsub{font-size:11px;color:var(--color-text-secondary);margin-top:1px}
+.ttag{font-size:11px;padding:3px 8px;border-radius:var(--border-radius-md);background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.obj-card{border-radius:var(--border-radius-md);padding:10px 12px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px}
+.obj-card i{font-size:18px;margin-top:1px;flex-shrink:0}
+.obj-blue{background:#E6F1FB}.obj-blue i{color:#185FA5}
+.obj-teal{background:#E1F5EE}.obj-teal i{color:#0F6E56}
+.obj-purple{background:#EEEDFE}.obj-purple i{color:#534AB7}
+.obj-amber{background:#FAEEDA}.obj-amber i{color:#854F0B}
+.obj-t{font-size:13px;font-weight:500}
+.obj-blue .obj-t{color:#0C447C}.obj-teal .obj-t{color:#085041}.obj-purple .obj-t{color:#3C3489}.obj-amber .obj-t{color:#633806}
+.recruit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:1rem}
+.pcard{border-radius:var(--border-radius-lg);padding:.9rem 1rem;border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary)}
+.avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;margin-bottom:8px}
+.pname{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.pmeta{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.obs-item{display:flex;gap:10px;padding:10px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.obs-item:last-child{border-bottom:none}
+.obs-strip{width:4px;border-radius:2px;flex-shrink:0;align-self:stretch}
+.obs-body{flex:1}
+.obs-text{font-size:13px;color:var(--color-text-primary);line-height:1.5}
+.obs-meta{font-size:11px;color:var(--color-text-secondary);margin-top:3px}
+.bar-row{margin-bottom:12px}
+.bar-label{display:flex;justify-content:space-between;margin-bottom:5px;font-size:12px}
+.bar-bg{height:8px;border-radius:4px;background:var(--color-background-secondary);overflow:hidden}
+.bar-fill{height:100%;border-radius:4px}
+.finding{border-radius:var(--border-radius-md);padding:10px 14px;margin-bottom:10px;border-left:4px solid}
+.f-red{background:#FCEBEB;border-color:#A32D2D}
+.f-amber{background:#FAEEDA;border-color:#854F0B}
+.f-blue{background:#E6F1FB;border-color:#185FA5}
+.f-title{font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.f-red .f-title{color:#791F1F}.f-amber .f-title{color:#633806}.f-blue .f-title{color:#0C447C}
+.f-desc{font-size:12px;margin-top:4px;line-height:1.5}
+.f-red .f-desc{color:#A32D2D}.f-amber .f-desc{color:#854F0B}.f-blue .f-desc{color:#185FA5}
+.rec-row{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.rec-row:last-child{border-bottom:none}
+.rec-icon-wrap{width:34px;height:34px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.ri-red{background:#FCEBEB;color:#A32D2D}
+.ri-amber{background:#FAEEDA;color:#854F0B}
+.ri-blue{background:#E6F1FB;color:#185FA5}
+.rec-title{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.rec-desc{font-size:12px;color:var(--color-text-secondary);margin-top:3px;line-height:1.5}
+.sus-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.sus-row:last-child{border-bottom:none}
+.sus-name{font-size:12px;color:var(--color-text-secondary);width:70px;flex-shrink:0}
+.sus-bar{flex:1}
+.sus-score{font-size:12px;font-weight:500;width:28px;text-align:right;flex-shrink:0}
+.crit-box{background:#FCEBEB;border:0.5px solid #F09595;border-radius:var(--border-radius-md);padding:10px 14px;margin:10px 0}
+.crit-box .hd{font-size:12px;font-weight:500;color:#791F1F;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.crit-box li{font-size:12px;color:#A32D2D;margin-left:16px;margin-bottom:3px}
+.action-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--border-radius-md);font-size:13px;cursor:pointer;border:0.5px solid;margin-top:12px;font-weight:500}
+.btn-blue{background:#E6F1FB;color:#0C447C;border-color:#85B7EB}
+.btn-blue:hover{background:#B5D4F4}
+.btn-teal{background:#E1F5EE;color:#085041;border-color:#5DCAA5}
+.btn-teal:hover{background:#9FE1CB}
+.btn-purple{background:#EEEDFE;color:#3C3489;border-color:#AFA9EC}
+.btn-purple:hover{background:#CECBF6}
+.btn-coral{background:#FAECE7;color:#712B13;border-color:#F0997B}
+.btn-coral:hover{background:#F5C4B3}
+.obs-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+select,input,textarea{font-size:13px;width:100%;padding:7px 10px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary)}
+textarea{resize:vertical;font-family:inherit}
+.screener-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.screener-row:last-child{border-bottom:none}
+.screener-l{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--color-text-primary)}
+.screener-l i{font-size:16px;color:var(--color-text-secondary)}
+</style>
+
+<h2 class="sr-only">Usability Testing & Analysis Platform — five-tab workflow covering test plan, participants, observations, metrics, and report.</h2>
+
+<div class="wrap">
+<div class="tabs" id="tabs">
+  <button class="tab a0 active" onclick="go(0,this)"><i class="ti ti-clipboard-list" aria-hidden="true"></i>Test plan</button>
+  <button class="tab" onclick="go(1,this)"><i class="ti ti-users" aria-hidden="true"></i>Participants</button>
+  <button class="tab" onclick="go(2,this)"><i class="ti ti-notes" aria-hidden="true"></i>Observations</button>
+  <button class="tab" onclick="go(3,this)"><i class="ti ti-chart-bar" aria-hidden="true"></i>Metrics</button>
+  <button class="tab" onclick="go(4,this)"><i class="ti ti-report" aria-hidden="true"></i>Report</button>
+</div>
+
+<div class="panel active" id="p0">
+  <div class="metric-grid">
+    <div class="mcard blue"><span class="mval blue">4</span><span class="mlbl blue">Test scenarios</span></div>
+    <div class="mcard teal"><span class="mval teal">45m</span><span class="mlbl teal">Session length</span></div>
+    <div class="mcard purple"><span class="mval purple">6</span><span class="mlbl purple">Participants</span></div>
+    <div class="mcard amber"><span class="mval amber">3</span><span class="mlbl amber">Objectives</span></div>
+  </div>
+
+  <div class="section-hd" style="color:#0C447C"><i class="ti ti-target" style="color:#185FA5" aria-hidden="true"></i>Test objectives</div>
+  <div class="obj-card obj-blue"><i class="ti ti-check" aria-hidden="true"></i><div><div class="obj-t">Measure task completion rate</div><div style="font-size:11px;color:#185FA5;margin-top:2px">Across all four checkout flow scenarios</div></div></div>
+  <div class="obj-card obj-teal"><i class="ti ti-route" aria-hidden="true"></i><div><div class="obj-t">Identify navigation pain points</div><div style="font-size:11px;color:#0F6E56;margin-top:2px">Especially drop-off moments and dead ends</div></div></div>
+  <div class="obj-card obj-purple"><i class="ti ti-tag" aria-hidden="true"></i><div><div class="obj-t">Evaluate promo code discoverability</div><div style="font-size:11px;color:#534AB7;margin-top:2px">Current completion rate is only 40%</div></div></div>
+  <div class="obj-card obj-amber"><i class="ti ti-clipboard-check" aria-hidden="true"></i><div><div class="obj-t">Collect SUS scores</div><div style="font-size:11px;color:#854F0B;margin-top:2px">System Usability Scale — target score 68+</div></div></div>
+
+  <div class="section-hd" style="color:#3C3489"><i class="ti ti-list-check" style="color:#534AB7" aria-hidden="true"></i>Test scenarios</div>
+  <div class="card">
+    <div class="row"><div class="row-l"><div class="scenario-num sn-blue">1</div><div><div class="rtext">Browse and add to cart</div><div class="rsub">Find a blue T-shirt in size M and add to cart</div></div></div><span class="badge b-blue">~3 min</span></div>
+    <div class="row"><div class="row-l"><div class="scenario-num sn-teal">2</div><div><div class="rtext">Apply a discount code</div><div class="rsub">Use promo code SAVE20 during checkout</div></div></div><span class="badge b-red">Critical · 2 min</span></div>
+    <div class="row"><div class="row-l"><div class="scenario-num sn-purple">3</div><div><div class="rtext">Complete purchase</div><div class="rsub">Select shipping and pay with a saved card</div></div></div><span class="badge b-purple">~4 min</span></div>
+    <div class="row"><div class="row-l"><div class="scenario-num sn-coral">4</div><div><div class="rtext">Track your order</div><div class="rsub">Find order status after placing it</div></div></div><span class="badge b-coral">~2 min</span></div>
+  </div>
+
+  <button class="action-btn btn-blue" onclick="sendPrompt('Write a detailed facilitator test script with probing questions for each scenario ↗')"><i class="ti ti-file-text" aria-hidden="true"></i>Generate full test script ↗</button>
+</div>
+
+<div class="panel" id="p1">
+  <div class="metric-grid">
+    <div class="mcard blue"><span class="mval blue">8</span><span class="mlbl blue">Recruited</span></div>
+    <div class="mcard teal"><span class="mval teal">6</span><span class="mlbl teal">Confirmed</span></div>
+    <div class="mcard purple"><span class="mval purple">5</span><span class="mlbl purple">Completed</span></div>
+    <div class="mcard amber"><span class="mval amber">45m</span><span class="mlbl amber">Avg session</span></div>
+  </div>
+
+  <div class="section-hd" style="color:#085041"><i class="ti ti-user-check" style="color:#0F6E56" aria-hidden="true"></i>Participant profiles</div>
+  <div class="recruit-grid">
+    <div class="pcard"><div class="avatar" style="background:#B5D4F4;color:#0C447C">AP</div><div class="pname">Anika P.</div><div class="pmeta">28 · Daily shopper</div><div style="margin-top:8px"><span class="badge b-teal"><i class="ti ti-check" style="font-size:10px" aria-hidden="true"></i>Completed</span></div></div>
+    <div class="pcard"><div class="avatar" style="background:#CECBF6;color:#3C3489">RS</div><div class="pname">Rohan S.</div><div class="pmeta">42 · Occasional buyer</div><div style="margin-top:8px"><span class="badge b-teal"><i class="ti ti-check" style="font-size:10px" aria-hidden="true"></i>Completed</span></div></div>
+    <div class="pcard"><div class="avatar" style="background:#9FE1CB;color:#085041">MW</div><div class="pname">Meera W.</div><div class="pmeta">35 · Tech-savvy</div><div style="margin-top:8px"><span class="badge b-teal"><i class="ti ti-check" style="font-size:10px" aria-hidden="true"></i>Completed</span></div></div>
+    <div class="pcard"><div class="avatar" style="background:#FAC775;color:#633806">DK</div><div class="pname">Dev K.</div><div class="pmeta">55 · Senior user</div><div style="margin-top:8px"><span class="badge b-teal"><i class="ti ti-check" style="font-size:10px" aria-hidden="true"></i>Completed</span></div></div>
+    <div class="pcard"><div class="avatar" style="background:#F4C0D1;color:#72243E">NJ</div><div class="pname">Nalini J.</div><div class="pmeta">31 · First-timer</div><div style="margin-top:8px"><span class="badge b-teal"><i class="ti ti-check" style="font-size:10px" aria-hidden="true"></i>Completed</span></div></div>
+    <div class="pcard"><div class="avatar" style="background:#D3D1C7;color:#444441">PG</div><div class="pname">Priya G.</div><div class="pmeta">24 · Power user</div><div style="margin-top:8px"><span class="badge b-amber"><i class="ti ti-clock" style="font-size:10px" aria-hidden="true"></i>Scheduled</span></div></div>
+  </div>
+
+  <div class="section-hd" style="color:#3C3489"><i class="ti ti-filter" style="color:#534AB7" aria-hidden="true"></i>Screener criteria</div>
+  <div class="card">
+    <div class="screener-row"><div class="screener-l"><i class="ti ti-device-mobile" aria-hidden="true"></i>Smartphone user (iOS or Android)</div><span class="badge b-teal">Required</span></div>
+    <div class="screener-row"><div class="screener-l"><i class="ti ti-shopping-cart" aria-hidden="true"></i>Online purchase in last 3 months</div><span class="badge b-teal">Required</span></div>
+    <div class="screener-row"><div class="screener-l"><i class="ti ti-users" aria-hidden="true"></i>Ages 20–60, mixed gender</div><span class="badge b-blue">Target</span></div>
+    <div class="screener-row"><div class="screener-l"><i class="ti ti-x" aria-hidden="true"></i>No UX or design background</div><span class="badge b-red">Exclude</span></div>
+  </div>
+  <button class="action-btn btn-teal" onclick="sendPrompt('Write a usability screener survey with 8 questions to recruit the right participants ↗')"><i class="ti ti-pencil" aria-hidden="true"></i>Draft screener survey ↗</button>
+</div>
+
+<div class="panel" id="p2">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem">
+    <span class="badge b-red"><i class="ti ti-circle-dot" style="font-size:10px" aria-hidden="true"></i>Pain point</span>
+    <span class="badge b-amber">Confusion</span>
+    <span class="badge b-teal">Success</span>
+    <span class="badge b-blue">Insight</span>
+  </div>
+  <div class="card">
+    <div class="obs-item"><div class="obs-strip" style="background:#E24B4A"></div><div class="obs-body"><div class="obs-text">"I don't see where to type my coupon — is it hidden somewhere?" Spent 90s searching for promo field</div><div class="obs-meta" style="display:flex;gap:8px;margin-top:5px"><span class="badge b-red" style="font-size:10px">Pain point</span><span style="font-size:11px;color:var(--color-text-secondary)">Rohan S. · Task 2 · 00:04:32</span></div></div></div>
+    <div class="obs-item"><div class="obs-strip" style="background:#EF9F27"></div><div class="obs-body"><div class="obs-text">Tapped "Back" 3 times expecting cart preview — kept returning to product listing instead</div><div class="obs-meta" style="display:flex;gap:8px;margin-top:5px"><span class="badge b-amber" style="font-size:10px">Confusion</span><span style="font-size:11px;color:var(--color-text-secondary)">Dev K. · Task 3 · 00:08:15</span></div></div></div>
+    <div class="obs-item"><div class="obs-strip" style="background:#1D9E75"></div><div class="obs-body"><div class="obs-text">Found filter and size selector immediately — added to cart in under 60 seconds</div><div class="obs-meta" style="display:flex;gap:8px;margin-top:5px"><span class="badge b-teal" style="font-size:10px">Success</span><span style="font-size:11px;color:var(--color-text-secondary)">Anika P. · Task 1 · 00:02:10</span></div></div></div>
+    <div class="obs-item"><div class="obs-strip" style="background:#E24B4A"></div><div class="obs-body"><div class="obs-text">"This payment screen looks sketchy — I'm not sure if it's secure." Hesitated at card entry</div><div class="obs-meta" style="display:flex;gap:8px;margin-top:5px"><span class="badge b-red" style="font-size:10px">Pain point</span><span style="font-size:11px;color:var(--color-text-secondary)">Nalini J. · Task 3 · 00:12:44</span></div></div></div>
+    <div class="obs-item"><div class="obs-strip" style="background:#378ADD"></div><div class="obs-body"><div class="obs-text">Expected order confirmation email first — didn't look inside the app for order history</div><div class="obs-meta" style="display:flex;gap:8px;margin-top:5px"><span class="badge b-blue" style="font-size:10px">Insight</span><span style="font-size:11px;color:var(--color-text-secondary)">Meera W. · Task 4 · 00:18:02</span></div></div></div>
+  </div>
+  <div class="section-hd" style="color:#633806"><i class="ti ti-plus" style="color:#854F0B" aria-hidden="true"></i>Log new observation</div>
+  <div class="card">
+    <div class="obs-form-grid">
+      <div><div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em">Participant</div><select><option>Anika P.</option><option>Rohan S.</option><option>Meera W.</option><option>Dev K.</option><option>Nalini J.</option></select></div>
+      <div><div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em">Type</div><select><option>Pain point</option><option>Confusion</option><option>Success</option><option>Insight</option></select></div>
+    </div>
+    <div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em">Observation note</div>
+    <textarea rows="2" placeholder="Describe what you observed or quote the participant..."></textarea>
+    <button class="action-btn btn-purple" style="margin-top:8px"><i class="ti ti-plus" aria-hidden="true"></i>Log observation</button>
+  </div>
+</div>
+
+<div class="panel" id="p3">
+  <div class="metric-grid">
+    <div class="mcard teal"><span class="mval teal">72%</span><span class="mlbl teal">Task completion</span></div>
+    <div class="mcard amber"><span class="mval amber">58</span><span class="mlbl amber">SUS score</span></div>
+    <div class="mcard blue"><span class="mval blue">8.4m</span><span class="mlbl blue">Avg time on task</span></div>
+    <div class="mcard" style="background:#FCEBEB"><span class="mval" style="color:#791F1F">3.4</span><span class="mlbl" style="color:#A32D2D">Avg errors</span></div>
+  </div>
+
+  <div class="section-hd" style="color:#085041"><i class="ti ti-checklist" style="color:#0F6E56" aria-hidden="true"></i>Task completion by scenario</div>
+  <div class="card">
+    <div class="bar-row"><div class="bar-label"><span style="font-size:13px;color:var(--color-text-primary)">Task 1 — Browse & add to cart</span><span style="font-weight:500;color:#0F6E56">100%</span></div><div class="bar-bg"><div class="bar-fill" style="width:100%;background:#1D9E75"></div></div></div>
+    <div class="bar-row"><div class="bar-label"><span style="font-size:13px;color:var(--color-text-primary)">Task 2 — Apply discount code</span><span style="font-weight:500;color:#A32D2D">40%</span></div><div class="bar-bg"><div class="bar-fill" style="width:40%;background:#E24B4A"></div></div></div>
+    <div class="bar-row"><div class="bar-label"><span style="font-size:13px;color:var(--color-text-primary)">Task 3 — Complete purchase</span><span style="font-weight:500;color:#854F0B">60%</span></div><div class="bar-bg"><div class="bar-fill" style="width:60%;background:#EF9F27"></div></div></div>
+    <div class="bar-row" style="margin-bottom:0"><div class="bar-label"><span style="font-size:13px;color:var(--color-text-primary)">Task 4 — Track order</span><span style="font-weight:500;color:#185FA5">80%</span></div><div class="bar-bg"><div class="bar-fill" style="width:80%;background:#378ADD"></div></div></div>
+  </div>
+
+  <div class="section-hd" style="color:#3C3489"><i class="ti ti-gauge" style="color:#534AB7" aria-hidden="true"></i>SUS scores per participant</div>
+  <div class="card">
+    <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:12px;padding-bottom:12px;border-bottom:0.5px solid var(--color-border-tertiary)">
+      <span style="font-size:36px;font-weight:500;color:#633806">58</span>
+      <span class="badge b-amber">Marginal — target is 68+</span>
+    </div>
+    <div class="sus-row"><span class="sus-name">Anika P.</span><div class="sus-bar"><div class="bar-bg"><div class="bar-fill" style="width:75%;background:#1D9E75"></div></div></div><span class="sus-score" style="color:#0F6E56">75</span></div>
+    <div class="sus-row"><span class="sus-name">Rohan S.</span><div class="sus-bar"><div class="bar-bg"><div class="bar-fill" style="width:50%;background:#EF9F27"></div></div></div><span class="sus-score" style="color:#854F0B">50</span></div>
+    <div class="sus-row"><span class="sus-name">Meera W.</span><div class="sus-bar"><div class="bar-bg"><div class="bar-fill" style="width:72%;background:#378ADD"></div></div></div><span class="sus-score" style="color:#185FA5">72</span></div>
+    <div class="sus-row"><span class="sus-name">Dev K.</span><div class="sus-bar"><div class="bar-bg"><div class="bar-fill" style="width:40%;background:#E24B4A"></div></div></div><span class="sus-score" style="color:#A32D2D">40</span></div>
+    <div class="sus-row"><span class="sus-name">Nalini J.</span><div class="sus-bar"><div class="bar-bg"><div class="bar-fill" style="width:55%;background:#EF9F27"></div></div></div><span class="sus-score" style="color:#854F0B">55</span></div>
+  </div>
+  <button class="action-btn btn-purple" onclick="sendPrompt('Analyse these SUS scores and task completion rates — what do they tell us and where should we focus? ↗')"><i class="ti ti-brain" aria-hidden="true"></i>Interpret results ↗</button>
+</div>
+
+<div class="panel" id="p4">
+  <div class="section-hd" style="color:#791F1F"><i class="ti ti-alert-triangle" style="color:#A32D2D" aria-hidden="true"></i>Key findings</div>
+  <div class="finding f-red"><div class="f-title"><span class="badge b-red">Critical</span>Promo code field not discoverable</div><div class="f-desc">4 of 5 participants failed to find the coupon input. It sits below the fold with no visual cue — only 40% task success rate.</div></div>
+  <div class="finding f-red"><div class="f-title"><span class="badge b-red">Critical</span>Payment screen lacks trust signals</div><div class="f-desc">3 participants hesitated or abandoned at card entry. No padlock, no card brand logos, no "secure checkout" copy visible.</div></div>
+  <div class="finding f-amber"><div class="f-title"><span class="badge b-amber">Moderate</span>Back navigation breaks cart context</div><div class="f-desc">2 participants lost cart state pressing the device back button — expected to return to cart, got the product listing instead.</div></div>
+  <div class="finding f-blue"><div class="f-title"><span class="badge b-blue">Minor</span>Order tracking mental model mismatch</div><div class="f-desc">Users expected email confirmation first — the in-app "My orders" label is not prominent enough to be found naturally.</div></div>
+
+  <div class="section-hd" style="color:#0C447C"><i class="ti ti-bulb" style="color:#185FA5" aria-hidden="true"></i>Design recommendations</div>
+  <div class="card">
+    <div class="rec-row"><div class="rec-icon-wrap ri-red"><i class="ti ti-tag" aria-hidden="true"></i></div><div><div class="rec-title">Elevate promo code input <span class="badge b-red" style="font-size:10px;margin-left:4px">P1</span></div><div class="rec-desc">Move coupon field above the order summary fold. Add a "Have a promo code?" collapsible link with clear CTA.</div></div></div>
+    <div class="rec-row"><div class="rec-icon-wrap ri-red"><i class="ti ti-shield-check" aria-hidden="true"></i></div><div><div class="rec-title">Add trust indicators to payment screen <span class="badge b-red" style="font-size:10px;margin-left:4px">P1</span></div><div class="rec-desc">Add SSL badge, Visa/Mastercard logos, and "256-bit encrypted" copy near the card input field.</div></div></div>
+    <div class="rec-row"><div class="rec-icon-wrap ri-amber"><i class="ti ti-arrow-back" aria-hidden="true"></i></div><div><div class="rec-title">Fix back-navigation state retention <span class="badge b-amber" style="font-size:10px;margin-left:4px">P2</span></div><div class="rec-desc">Persist cart in session so back navigation from checkout returns to cart — not the product list.</div></div></div>
+    <div class="rec-row"><div class="rec-icon-wrap ri-blue"><i class="ti ti-package" aria-hidden="true"></i></div><div><div class="rec-title">Improve post-purchase confirmation <span class="badge b-blue" style="font-size:10px;margin-left:4px">P3</span></div><div class="rec-desc">Show a prominent success screen with order number and "Track order" CTA immediately after purchase.</div></div></div>
+  </div>
+  <button class="action-btn btn-coral" onclick="sendPrompt('Write a full executive usability report with a prioritised design roadmap based on these findings ↗')"><i class="ti ti-report" aria-hidden="true"></i>Generate executive report ↗</button>
+</div>
+</div>
+
+<script>
+const activeClasses=['a0','a1','a2','a3','a4'];
+function go(i,btn){
+  document.querySelectorAll('.tab').forEach((t,idx)=>{t.classList.remove(...activeClasses);if(idx===i)t.classList.add(activeClasses[i])});
+  document.querySelectorAll('.panel').forEach((p,idx)=>p.classList.toggle('active',idx===i));
+}
+</script>
