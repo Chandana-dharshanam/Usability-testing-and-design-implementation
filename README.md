@@ -6,7 +6,7 @@ This platform helps UX researchers, product designers, and teams efficiently con
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 The **Usability Testing & Analysis Platform** provides a complete workflow for conducting usability testing sessions, from planning to reporting.
 
@@ -21,7 +21,7 @@ The platform is built with an intuitive tab-based interface for easy navigation 
 
 ---
 
-## ✨ Features
+## Features
 
 ### 1. Test Plan
 - Define usability test objectives
@@ -98,7 +98,7 @@ Examples:
 
 ---
 
-## 🎯 Objectives
+## Objectives
 
 The main goals of this platform are:
 
@@ -110,7 +110,7 @@ The main goals of this platform are:
 
 ---
 
-## 📊 Key Metrics Tracked
+## Key Metrics Tracked
 
 - Task Completion Rate
 - SUS Score
@@ -120,7 +120,7 @@ The main goals of this platform are:
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 1. Clone the repository:
 
